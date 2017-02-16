@@ -1,0 +1,25 @@
+version: '2'
+
+services: 
+  remote:
+    image: vymarkov/kitchen:v1.0.0-rc2
+    container_name: kitchen
+    env_file:
+    - .env
+    volumes:
+    - /var/run/docker.sock:/var/run/docker.sock:ro
+    stdin_open: true
+    command: zsh
+
+  local:
+    image: vymarkov/kitchen:local
+    build: 
+      context: .
+    container_name: kitchen
+    env_file:
+    - .env
+    volumes:
+    - .:/usr/kitchen:rw
+    - /var/run/docker.sock:/var/run/docker.sock:ro
+    stdin_open: true
+    command: zsh
