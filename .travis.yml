@@ -5,8 +5,10 @@ services:
 
 before_install:
 - docker login -u vymarkov -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-- docker build -t vymarkov/kitchen:latest -f Dockerfile .
-- docker push vymarkov/kitchen:latest
 
 script:
+- docker build -t vymarkov/kitchen:latest -f Dockerfile .
+- docker tag vymarkov/kitchen:latest vymarkov/kitchen:v1.0.0-rc3
+- docker push vymarkov/kitchen:latest
+- docker push vymarkov/kitchen:v1.0.0-rc3
 - echo "everything is ok"
