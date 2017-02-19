@@ -54,8 +54,19 @@ RUN git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh \
 RUN go get github.com/Masterminds/glide
 
 # Installing a Docker Version Manager and Docker
-RUN go get github.com/getcarina/dvm || true
-RUN cd $GOPATH/src/github.com/getcarina/dvm/ && glide install && cd dvm-helper && ./build && cp -a ./bin/dvm-helper-linux-amd64 /usr/local/bin/dvm && dvm install $DOCKER_VERSION && cp /root/.dvm/bin/docker/$DOCKER_VERSION/docker /usr/local/bin/docker
+# RUN go get github.com/getcarina/dvm || true
+# RUN mkdir -p $GOPATH/src/github.com/getcarina &&\
+#   cd $GOPATH/src/github.com/getcarina &&\
+#   git clone https://github.com/getcarina/dvm.git &&\
+#   git checkout 3c707bd6de635ee33445119e298c8f04c73a9c66
+
+RUN mkdir -p $GOPATH/src/github.com/getcarina/dvm
+RUN curl -OL https://github.com/getcarina/dvm/archive/0.6.5.zip &&\
+  unzip 0.6.5.zip && mv dvm-0.6.5 dvm &&\
+  cp -r dvm $GOPATH/src/github.com/getcarina &&\
+  ls -al $GOPATH/src/github.com/getcarina
+
+RUN ls $GOPATH/src/github.com/getcarina/dvm && cd $GOPATH/src/github.com/getcarina/dvm && glide install && cd dvm-helper && ./build && cp -a ./bin/dvm-helper-linux-amd64 /usr/local/bin/dvm && dvm install $DOCKER_VERSION && cp /root/.dvm/bin/docker/$DOCKER_VERSION/docker /usr/local/bin/docker
 
 # Installing the Docker Compose
 RUN curl -L https://github.com/docker/compose/releases/download/$DOCKER_COMPOSE_VERSION/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose &&\
