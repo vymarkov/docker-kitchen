@@ -16,4 +16,5 @@ cache:
 build:
   image: node:8-wheezy
   script:
-    - echo "ok"
+    - node -v
+    - npm -v
