@@ -1,21 +1,20 @@
-# Using the Dockerfile
+# How to use:
 #
-#   You have an able to provison an infrastructure using this Dockerfile without
+#   In order provison an infrastructure using this Dockerfile without
 #   need to install all the necessary tools such Terraform, Consul, Vault, aws-cli, jq, etc to your
 #   local workstation.
 #
-#   For the first you need to build a docker image from the Dockerfile. Firstly, install
-#   Docker and Docker Compose on your local machine if needed and run the command below:
+#   For the first you need to build a docker image from the Dockerfile. 
+#   Please, install Docker and Docker Compose on your local machine if needed and run the command below:
 #
 #      $ docker-compose build
 #
-#   Now we can run a container from our image to provison our cluster or interact with a your cluster:
+#   Now you can run a container from our image:
 #
 #      $ docker-compose run --rm kitchen zsh
 #
 
 FROM golang:1.6-wheezy
-MAINTAINER Vitaly Markov <vymarkov@gmail.com>
 
 ENV DOCKER_VERSION 1.10.3
 ENV DOCKER_COMPOSE_VERSION 1.7.1
